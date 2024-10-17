@@ -1,0 +1,2 @@
+#This file makes GitHub ignore the API key file#
+.env
