@@ -41,7 +41,7 @@ if __name__ == "__main__":
         print("Error in geocoding the location.")
         exit(1)
     attractions = get_local_attractions(user_location)
-    attractions.sort(key=lambda x: x[1], reverse=True)
+    attractions.sort(key=lambda x: float(x[1]) if x[1] != 'No rating' else 0, reverse=True)
     print("Local Attractions:")
     for name, rating in attractions:
         print(f"{name} - Rating: {rating}")
