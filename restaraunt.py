@@ -16,11 +16,11 @@ def get_restaurant_recommendations(location, radius=1500, type='restaurant'):
         'location': location,
         'radius': radius,
         'type': type,
-        'key': API_KEY
+        'key': RESTAURANT_API_KEY
     }
     
     # Make the API request to Google Places API
-    response = requests.get(BASE_URL, params=params)
+    response = requests.get(RESTAURANT_API_URL, params=params)
     
     if response.status_code == 200:
         results = response.json().get('results', [])
