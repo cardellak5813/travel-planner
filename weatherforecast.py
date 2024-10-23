@@ -1,18 +1,27 @@
 import requests
+import os
+from dotenv import load_dotenv
 import urllib.parse
+
+# Load environment variables from .env file
+load_dotenv()
+
+# API keys and base URLs
+WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
+WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 # Get user input
 city = input("Enter a City: ")
 country = input("Enter the country or state of the city: ")
 
 # API key and base URL
-weatherKey = "e370c1f80781f24e8110649eba4b6329"
-base_url = "http://api.openweathermap.org/data/2.5/weather"
+WEATHER_API_KEY = "e370c1f80781f24e8110649eba4b6329"
+WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 # Construct the full API URL
 params = {
     'q': f"{city},{country}",
-    'appid': weatherKey,
+    'appid': WEATHER_API_KEY,
     'units': 'imperial'
 }
 url = f"{base_url}?{urllib.parse.urlencode(params)}"
