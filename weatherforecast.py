@@ -24,7 +24,7 @@ params = {
     'appid': WEATHER_API_KEY,
     'units': 'imperial'
 }
-url = f"{base_url}?{urllib.parse.urlencode(params)}"
+url = f"{WEATHER_API_URL}?{urllib.parse.urlencode(params)}"
 
 # Make the API call
 response = requests.get(url)

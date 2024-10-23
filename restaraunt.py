@@ -33,7 +33,7 @@ def get_restaurant_recommendations(location, radius=1500, type='restaurant'):
 def recommend_restaurants(city, country):
     # Geocoding the location name to get latitude and longitude
     user_location_name = f"{city},{country}"
-    geocode_url = f"https://maps.googleapis.com/maps/api/geocode/json?address={urllib.parse.quote(user_location_name)}&key={API_KEY}"
+    geocode_url = f"https://maps.googleapis.com/maps/api/geocode/json?address={urllib.parse.quote(user_location_name)}&key={RESTAURANT_API_KEY}"
     geocode_response = requests.get(geocode_url)
     
     if geocode_response.status_code == 200:

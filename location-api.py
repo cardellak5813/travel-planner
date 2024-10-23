@@ -33,7 +33,7 @@ if __name__ == "__main__":
         'maxresults': 20
     }
     # Geocoding the location name to get latitude and longitude
-    geocode_url = f"https://maps.googleapis.com/maps/api/geocode/json?address={user_location_name}&key={API_KEY}"
+    geocode_url = f"https://maps.googleapis.com/maps/api/geocode/json?address={user_location_name}&key={ATTRACTION_API_KEY}"
     geocode_response = requests.get(geocode_url)
     
     if geocode_response.status_code == 200:
