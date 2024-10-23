@@ -7,7 +7,7 @@ load_dotenv()
 
 # Replace with your actual FlightAPI endpoint and API key
 FLIGHT_API_KEY = os.getenv('FLIGHT_API_KEY')
-FLIGHT_API_URL = "https://api.flightapi.com/v1/flights"
+FLIGHT_API_URL = "https://api.flightapi.io/"
 
 def get_flight_details(origin, destination, departure_date, return_date):
     # Set up the API query parameters
