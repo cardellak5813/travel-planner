@@ -1,7 +1,14 @@
 import requests
+import os
+import urllib.parse
+from dotenv import load_dotenv
 
-API_KEY = 'AIzaSyCyuA0Sult1mQo3WCEFv5K_oC7U3qe1snU'  
-BASE_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
+# Load environment variables from .env file
+load_dotenv()
+
+# API Keys and Base URLs
+RESTAURANT_API_KEY = os.getenv('RESTAURANT_API_KEY')
+RESTAURANT_API_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 
 # Function to get restaurant recommendations based on location
 def get_restaurant_recommendations(location, radius=1500, type='restaurant'):
