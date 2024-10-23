@@ -15,10 +15,10 @@ def get_local_attractions(location, radius=1000, type='tourist_attraction'):
         'location': location,
         'radius': radius,
         'type': type,
-        'key': API_KEY
+        'key': ATTRACTION_API_KEY
     }
     
-    response = requests.get(BASE_URL, params=params)
+    response = requests.get(ATTRACTION_API_URL, params=params)
     if response.status_code == 200:
         results = response.json().get('results', [])
         attractions = [(place['name'], place.get('rating', 'No rating')) for place in results]
