@@ -6,7 +6,6 @@ This is a travel itinerary planner that helps users plan trips by providing weat
 - Weather Forecast
 - Local Attractions
 - Restaurant Suggestions
-- Flight Suggestions
 
 ## Setup Instructions:
 1. Clone the repository.
