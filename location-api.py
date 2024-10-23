@@ -1,7 +1,14 @@
 import requests
+import os
+from dotenv import load_dotenv
+import urllib.parse
 
-API_KEY = 'AIzaSyBxxVlzimuQswhNmahpMLq676sVjt8luIc'
-BASE_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
+# Load environment variables from .env file
+load_dotenv()
+
+# API keys and base URLs
+ATTRACTION_API_KEY = os.getenv('ATTRACTION_API_KEY')
+ATTRACTION_API_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 
 def get_local_attractions(location, radius=1000, type='tourist_attraction'):
     params = {
