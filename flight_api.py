@@ -9,9 +9,19 @@ load_dotenv()
 FLIGHT_API_KEY = os.getenv('FLIGHT_API_KEY')
 FLIGHT_API_URL = f"https://api.flightapi.io/roundtrip/{FLIGHT_API_KEY}"
 
-def get_flight_details(departure_airport_code, arrival_airport_code, departure_date, arrival_date, adults, children, infants, cabin_class, currency):
+def get_flight_details(arrival_airport_code):
+    # Set default values for departure airport and other parameters
+    departure_airport_code = "MSP"
+    departure_date = "2024-11-01"
+    return_date = "2024-11-07"
+    adults = 1
+    children = 0
+    infants = 0
+    cabin_class = "Economy"
+    currency = "USD"
+
     # Construct the full API URL with parameters
-    url = f"{FLIGHT_API_URL}/{departure_airport_code}/{arrival_airport_code}/{departure_date}/{arrival_date}/{adults}/{children}/{infants}/{cabin_class}/{currency}"
+    url = f"{FLIGHT_API_URL}/{departure_airport_code}/{arrival_airport_code}/{departure_date}/{return_date}/{adults}/{children}/{infants}/{cabin_class}/{currency}"
     
     # Make the API request
     try:
@@ -26,49 +36,31 @@ def get_flight_details(departure_airport_code, arrival_airport_code, departure_d
         print(f"Error fetching flight data: {e}")
         return None
 
-# Function to extract and print unique flight prices, limiting to 5 options
+# Function to extract and print the flight prices
 def get_unique_flight_prices(data):
-    """
-    Extract and print unique flight prices from the flight data in a formatted way, limiting output to 5.
-    """
-    prices = set()  # Use a set to store unique prices
-
-    if "itineraries" in data and data["itineraries"]:
+    if "itineraries" in data:
+        prices = set()  # Use a set to avoid duplicate prices
         for itinerary in data["itineraries"]:
-            if "pricing_options" in itinerary:
-                for option in itinerary["pricing_options"]:
-                    if "price" in option and "amount" in option["price"]:
-                        price = option["price"]["amount"]
-                        prices.add(price)
-                    if len(prices) >= 5:  # Limit to 5 prices
-                        break
-            if len(prices) >= 5:
-                break
+            for option in itinerary["pricing_options"]:
+                price = option["price"]["amount"]
+                prices.add(price)
 
-    if prices:
-        print("\n----- Available Flight Prices (Limited to 5 options) -----")
-        for idx, price in enumerate(sorted(prices), 1):
-            print(f"Option {idx}: ${price:.2f}")
-        print("-----------------------------------------------------------\n")
+        # Convert the set to a sorted list and limit the output to 5 prices
+        sorted_prices = sorted(prices)[:5]
+        print("Top 5 Flight Prices:")
+        for idx, price in enumerate(sorted_prices, 1):
+            print(f"{idx}. ${price:.2f}")
     else:
-        print("No pricing options available for this flight.")
+        print("No pricing options available.")
 
 # Example usage
 if __name__ == "__main__":
-    departure_airport_code = input("Enter your departure airport code (e.g., MSP): ")
-    arrival_airport_code = input("Enter your arrival airport code (e.g., LAX): ")
-    departure_date = input("Enter your departure date (YYYY-MM-DD): ")
-    arrival_date = input("Enter your return date (YYYY-MM-DD): ")
-    adults = input("Enter the number of adults: ")
-    children = input("Enter the number of children: ")
-    infants = input("Enter the number of infants: ")
-    cabin_class = input('Enter cabin class ("Economy", "Business", "First", "Premium_Economy"): ')
-    currency = input("Enter the currency (e.g., USD): ")
+    arrival_airport_code = input("Enter your destination airport code (e.g., LAX): ")
     
-    # Fetch flight details
-    flight_data = get_flight_details(departure_airport_code, arrival_airport_code, departure_date, arrival_date, adults, children, infants, cabin_class, currency)
+    # Fetch flight details with default values and the provided destination
+    flight_data = get_flight_details(arrival_airport_code)
     
-    # If data is fetched successfully, extract and display the prices
+    # If data is fetched successfully, extract and display the unique prices
     if flight_data:
         get_unique_flight_prices(flight_data)
     else:
